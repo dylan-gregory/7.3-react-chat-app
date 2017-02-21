@@ -13,6 +13,12 @@ var ChatroomContainer = React.createClass({
     return {messageList: userMessages};
 
   },
+  saveUsername: function(username){
+    // var userID = this.state.username;
+    // userID.set(username);
+    // this.setState({username: userID});
+    this.props.username = username;
+  },
   sendMessage: function(message){
     var messageList = this.state.messageList;
     messageList.create(message);
@@ -28,7 +34,7 @@ var ChatroomContainer = React.createClass({
           <div className="col-md-4">
             <h3>Join the chat!</h3>
 
-            <UserForm />
+            <UserForm saveUsername={this.saveUsername}/>
 
             <ChatForm sendMessage={this.sendMessage} />
 
@@ -49,8 +55,9 @@ var ChatroomContainer = React.createClass({
 var UserForm = React.createClass({
   saveUsername: function(event){
     event.preventDefault();
+    console.log(this.state);
 
-    
+    this.props.saveUsername(this.state);
   },
   handleUsername: function(event){
     this.setState({username: event.target.value});
@@ -101,7 +108,7 @@ var MessageList = React.createClass({
 
     var messageItems = this.props.messageList.map(function(message){
       return (
-          <li className="list-group-item" key={message.cid}> {message.get('message')} </li>
+          <li className="list-group-item" key={message.cid}> {message.get('username')}::{message.get('message')} </li>
       );
     });
 

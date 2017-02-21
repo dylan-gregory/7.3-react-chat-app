@@ -13,7 +13,7 @@ var AppRouter = Backbone.Router.extend({
       React.createElement(ChatroomContainer),
       document.getElementById('app')
     );
-  },
+  }
 });
 
 var appRouter = new AppRouter();

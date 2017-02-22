@@ -15,3 +15,83 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 img {
   max-width: 100%;
 }
+
+body{
+  font-family: "Helvetica";
+}
+
+.container{
+  background-color: #413C58;
+}
+
+h2{
+  color: white;
+}
+
+h3{
+  color: white;
+  border-bottom: 2px solid #999441;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  
+}
+
+.textarea{
+  margin-bottom: 10px;
+  min-height: 60px;
+}
+
+.message-box{
+  background-color: #C0BCB5;
+  padding-bottom: 0px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.welcome{
+  text-align: center;
+  font-size: 60px;
+  color: white;
+  background-color: #686056;
+  border-bottom: 2px solid #999441;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+
+li{
+  font-size: 20px;
+  border: 1px solid #999441;
+}
+
+.logged-in-as{
+  color: #F59A9C;
+}
+
+.post-time{
+  font-size: 15px;
+  color: #F59A9C;
+  float: right;
+  vertical-align: middle;
+}
+
+.post-user{
+  color: #999441;
+}
+
+.btn{
+  background-color: #C97F80;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+ul{
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}

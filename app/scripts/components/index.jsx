@@ -1,71 +1,103 @@
 var React = require('react');
 
 var MessageCollection = require('../models/models.js').MessageCollection;
+var userMessages = new MessageCollection();
 
 var ChatroomContainer = React.createClass({
+  componentWillMount: function(){
+    window.setInterval(this.getNewMessages, 1000);
+  },
   getInitialState: function(){
-    var userMessages = new MessageCollection();
+    // var userMessages = new MessageCollection();
     var self = this;
     userMessages.fetch().done(function(){
       self.setState({userMessages: userMessages});
     });
+    // this.getNewMessages();
 
-    return {messageList: userMessages};
+    console.log(this.props.router.username);
+    return {messageList: userMessages, username: this.props.router.username};
 
   },
-  saveUsername: function(username){
-    // var userID = this.state.username;
-    // userID.set(username);
-    // this.setState({username: userID});
-    this.props.username = username;
+  getNewMessages: function(){
+    console.log('checking for messages...');
+    var self = this;
+    this.state.messageList.fetch().done(function(){
+      self.setState({userMessages: userMessages});
+    });
+
   },
   sendMessage: function(message){
     var messageList = this.state.messageList;
+    messageList.username = this.state.username;
     messageList.create(message);
     this.setState({messageList: messageList});
   },
   render: function(){
 
     return (
+    <div>
+      <div className=" row welcome">Welcome, TIY-GVL'ers!</div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <h2>You're logged in as: <span className="logged-in-as">{this.state.username}</span></h2>
+              <h3>Join the chat!</h3>
 
-      <div className="container">
-        <h1>Welcome to the chatroom!</h1>
-        <div className="row">
-          <div className="col-md-4">
-            <h3>Join the chat!</h3>
+              <ChatForm sendMessage={this.sendMessage} />
 
-            <UserForm saveUsername={this.saveUsername}/>
+            </div>
 
-            <ChatForm sendMessage={this.sendMessage} />
+            <div className="col-md-8">
+              <h3>See what everyone is talking about:</h3>
 
-          </div>
+              <MessageList messageList={this.state.messageList} />
 
-          <div className="col-md-8">
-            <h3>See what everyone is talking about:</h3>
-
-            <MessageList messageList={this.state.messageList} />
-
+            </div>
           </div>
         </div>
+    </div>
+    );
+  }
+});
+
+var LoginContainer = React.createClass({
+  loginUser: function(user){
+    var router = this.props.router;
+    router.username = user.username;
+    localStorage.setItem('username', user.username);
+
+    router.navigate('', {trigger: true});
+  },
+  render: function(){
+    return (
+      <div>
+        <h1>Please enter your username::</h1>
+          <UserForm loginUser={this.loginUser} />
       </div>
+
     );
   }
 });
 
 var UserForm = React.createClass({
-  saveUsername: function(event){
-    event.preventDefault();
-    console.log(this.state);
-
-    this.props.saveUsername(this.state);
+  getInitialState: function(){
+    return {username: ''};
   },
   handleUsername: function(event){
     this.setState({username: event.target.value});
   },
+  handleLogin: function(event){
+    event.preventDefault();
+    var user = this.state;
+    this.props.loginUser(user);
+
+    this.setState({username: ''});
+  },
   render: function(){
     return (
 
-      <form onSubmit={this.saveUsername}>
+      <form onSubmit={this.handleLogin}>
         <div className="form-group">
           <label htmlFor="username"  />
           <input type="text" className="form-control" id="username" onChange={this.handleUsername} placeholder="Your username is...?" />
@@ -78,12 +110,15 @@ var UserForm = React.createClass({
 });
 
 var ChatForm = React.createClass({
+  getInitialState: function(){
+    var chat = {message:''}
+    return chat;
+  },
   sendMessage: function(event){
     event.preventDefault();
-
     this.props.sendMessage(this.state);
-
     this.setState({message: ''});
+
   },
   handleMessage: function(event){
     this.setState({message: event.target.value});
@@ -92,11 +127,11 @@ var ChatForm = React.createClass({
 //value={this.state.message}
     return (
 
-      <form onSubmit={this.sendMessage}>
+      <form className="well message-box" onSubmit={this.sendMessage}>
         <div className="form-group">
-          <textarea onChange={this.handleMessage} className="form-control" rows="3" id="message" placeholder="Type your message here, my dude"  ></textarea>
+          <input type="textarea" onChange={this.handleMessage} value={this.state.message} className="form-control textarea" id="message" placeholder="Type your message here, my dude" />
 
-          <input type="submit" className="btn btn-primary" value="Send" />
+          <button type="submit" className="btn btn-primary">Send</button>
         </div>
       </form>
     )
@@ -108,7 +143,8 @@ var MessageList = React.createClass({
 
     var messageItems = this.props.messageList.map(function(message){
       return (
-          <li className="list-group-item" key={message.cid}> {message.get('username')}::{message.get('message')} </li>
+          <li className="list-group-item clearfix" key={message.cid}> <span className="post-user">{message.get('username')}</span> :: {message.get('message')}
+          <span className="post-time">(sent at :  {message.get('timestamp')})</span></li>
       );
     });
 
@@ -125,5 +161,6 @@ module.exports = {
   ChatroomContainer,
   ChatForm,
   MessageList,
-  UserForm
+  UserForm,
+  LoginContainer
 };

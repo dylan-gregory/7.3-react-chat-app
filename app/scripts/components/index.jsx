@@ -42,7 +42,7 @@ var ChatroomContainer = React.createClass({
           <div className="row">
             <div className="col-md-4">
               <h2>You're logged in as: <span className="logged-in-as">{this.state.username}</span></h2>
-              <h3>Join the chat!</h3>
+              <h3 className="join-chat">Join the chat!</h3>
 
               <ChatForm sendMessage={this.sendMessage} />
 
@@ -71,9 +71,11 @@ var LoginContainer = React.createClass({
   },
   render: function(){
     return (
-      <div>
-        <h1>Please enter your username::</h1>
-          <UserForm loginUser={this.loginUser} />
+      <div className="container">
+        <div className="col-md-4 col-md-offset-4">
+          <h1 className="login-prompt" >Please enter your username:</h1>
+            <UserForm loginUser={this.loginUser} />
+        </div>
       </div>
 
     );
@@ -100,7 +102,7 @@ var UserForm = React.createClass({
       <form onSubmit={this.handleLogin}>
         <div className="form-group">
           <label htmlFor="username"  />
-          <input type="text" className="form-control" id="username" onChange={this.handleUsername} placeholder="Your username is...?" />
+          <input type="text" className="form-control login-input" id="username" onChange={this.handleUsername} placeholder="Your username is...?" />
 
           <input type="submit" className="btn btn-success" value="Login" />
         </div>

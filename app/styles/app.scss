@@ -17,23 +17,25 @@ img {
 }
 
 body{
-  font-family: "Helvetica";
+  font-family: 'Lato', sans-serif;
 }
 
 .container{
-  background-color: #413C58;
+  border-left: 1px solid #413C58;
+  border-right: 1px solid #413C58;
 }
 
 h2{
-  color: white;
+  color: #413C58;
 }
 
 h3{
-  color: white;
+  color: #413C58;
   border-bottom: 2px solid #999441;
-  padding-bottom: 10px;
+  padding-bottom: 25px;
   margin-bottom: 15px;
-  
+  margin-top: 25px;
+
 }
 
 .textarea{
@@ -56,7 +58,7 @@ h3{
   text-align: center;
   font-size: 60px;
   color: white;
-  background-color: #686056;
+  background-color: #413C58;
   border-bottom: 2px solid #999441;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -85,13 +87,25 @@ li{
 
 .btn{
   background-color: #C97F80;
+  border-color: #E1B9B9;
+}
+
+ul{
+  height: 470px;
+  overflow: scroll;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }
 
-ul{
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+.join-chat{
+  padding-bottom: 10px;
+}
+
+.login-input{
+  margin-bottom: 20px;
+}
+
+.login-prompt{
+  margin-bottom: 0px;
 }

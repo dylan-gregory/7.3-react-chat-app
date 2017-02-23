@@ -44,7 +44,7 @@ var ChatroomContainer = React.createClass({displayName: "ChatroomContainer",
           React.createElement("div", {className: "row"}, 
             React.createElement("div", {className: "col-md-4"}, 
               React.createElement("h2", null, "You're logged in as: ", React.createElement("span", {className: "logged-in-as"}, this.state.username)), 
-              React.createElement("h3", null, "Join the chat!"), 
+              React.createElement("h3", {className: "join-chat"}, "Join the chat!"), 
 
               React.createElement(ChatForm, {sendMessage: this.sendMessage})
 
@@ -73,9 +73,11 @@ var LoginContainer = React.createClass({displayName: "LoginContainer",
   },
   render: function(){
     return (
-      React.createElement("div", null, 
-        React.createElement("h1", null, "Please enter your username::"), 
-          React.createElement(UserForm, {loginUser: this.loginUser})
+      React.createElement("div", {className: "container"}, 
+        React.createElement("div", {className: "col-md-4 col-md-offset-4"}, 
+          React.createElement("h1", {className: "login-prompt"}, "Please enter your username:"), 
+            React.createElement(UserForm, {loginUser: this.loginUser})
+        )
       )
 
     );
@@ -102,7 +104,7 @@ var UserForm = React.createClass({displayName: "UserForm",
       React.createElement("form", {onSubmit: this.handleLogin}, 
         React.createElement("div", {className: "form-group"}, 
           React.createElement("label", {htmlFor: "username"}), 
-          React.createElement("input", {type: "text", className: "form-control", id: "username", onChange: this.handleUsername, placeholder: "Your username is...?"}), 
+          React.createElement("input", {type: "text", className: "form-control login-input", id: "username", onChange: this.handleUsername, placeholder: "Your username is...?"}), 
 
           React.createElement("input", {type: "submit", className: "btn btn-success", value: "Login"})
         )
